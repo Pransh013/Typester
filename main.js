@@ -1,8 +1,9 @@
-const QUOTES_DATA_URL = `https://api.quotable.io/quotes/random?minLength=80&maxLength=100`;
+const QUOTES_DATA_URL = `https://api.quotable.io/quotes/random?minLength=120&maxLength=150`;
 const typedText = document.getElementById("typedText");
 const start = document.getElementById("start");
 const backdrop = document.getElementById("backdrop");
 const innerBackdrop = document.getElementById("innerBackdrop");
+const innerBackdropContent = document.getElementById("innerBackdropContent");
 const bestScore = document.getElementById("bestScore");
 let quote = document.querySelector("#quoteText");
 let charArr;
@@ -14,13 +15,14 @@ let highScore = false;
 
 window.addEventListener("load", () => {
   if (localStorage.getItem("best-speed"))
-    bestScore.innerHTML = `HighScore : ${localStorage.getItem(
+    bestScore.innerHTML = `HighScore: ${localStorage.getItem(
       "best-speed"
     )}wpm`;
 });
 
 start.addEventListener("click", () => {
   setTimeout(addText, 2000);
+  initialTime = new Date();
 });
 
 const getQuote = async () => {
@@ -39,7 +41,7 @@ const addText = async () => {
     quote.append(singleChar);
   });
   typedText.value = "";
-  initialTime = new Date();
+  // initialTime = new Date();
 };
 
 typedText.addEventListener("input", () => {
@@ -70,18 +72,16 @@ typedText.addEventListener("input", () => {
       typedTextArr.length === quoteText.length &&
       count === quoteText.length - 1
     ) {
-      getWPM(typedTextArr, (new Date() - initialTime) / 60000);
+      getWPM(charArr, (new Date() - initialTime) / 60000);
       getAccuracy(charArr.length, incorrect);
       toggleBackdrop();
       addDetails();
-      quote.innerHTML = "Click on start to try again.";
-      typedText.value = "";
     }
   });
 });
 
-const getWPM = (typedTextArr, timeTaken) => {
-  const wordsArr = typedTextArr.join("").split(" ");
+const getWPM = (arr, timeTaken) => {
+  const wordsArr = arr.join("").split(" ");
   wpm = Math.floor(wordsArr.length / timeTaken);
   if (!localStorage.getItem("best-speed")) {
     localStorage.setItem("best-speed", wpm);
@@ -90,9 +90,6 @@ const getWPM = (typedTextArr, timeTaken) => {
     if (oldWpm < wpm) {
       highScore = true;
       localStorage.setItem("best-speed", wpm);
-      bestScore.innerHTML = `HighScore : ${localStorage.getItem(
-        "best-speed"
-      )}wpm`;
     }
   }
 };
@@ -103,10 +100,14 @@ const getAccuracy = (length, incorrect) => {
 
 const toggleBackdrop = () => {
   backdrop.classList.toggle("hidden");
+  quote.innerHTML = "Click on start to try again.";
+  typedText.value = "";
+  innerBackdropContent.innerHTML = "";
 };
 
 const addDetails = () => {
   const scoreInfo = document.createElement("p");
+  bestScore.innerHTML = `HighScore: ${localStorage.getItem("best-speed")}wpm`;
   if (highScore) {
     scoreInfo.innerHTML = "Congrats!!🎉 You've achieved a new high score.";
   } else {
@@ -135,5 +136,5 @@ const addDetails = () => {
   const statsInfo = document.createElement("div");
   statsInfo.setAttribute("class", "flex flex-col gap-6 items-center");
   statsInfo.append(accuracyInfo, wpmInfo);
-  innerBackdrop.append(scoreInfo, statsInfo);
+  innerBackdropContent.append(scoreInfo, statsInfo);
 };
