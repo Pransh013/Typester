@@ -1,6 +1,6 @@
 # Typester :
 
-**Typester**, a typing speed game implemented in `HTML`, `Tailwind` and `JavaScript`. The game allows users to test their typing speed and accuracy, storing the best speed achieved in local storage for future reference.
+**Typester**, a fully **`responsive`** typing speed game implemented in `HTML`, `Tailwind` and `JavaScript`. The game allows users to test their typing speed and accuracy, storing the best speed achieved in local storage for future reference.
 
 ## Features
 ### Typing speed measurement: 

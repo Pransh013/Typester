@@ -15,13 +15,11 @@ let highScore = false;
 
 window.addEventListener("load", () => {
   if (localStorage.getItem("best-speed"))
-    bestScore.innerHTML = `HighScore: ${localStorage.getItem(
-      "best-speed"
-    )}wpm`;
+    bestScore.innerHTML = `HighScore: ${localStorage.getItem("best-speed")}wpm`;
 });
 
 start.addEventListener("click", () => {
-  setTimeout(addText, 2000);
+  setTimeout(addText, 0);
   initialTime = new Date();
 });
 
@@ -41,7 +39,6 @@ const addText = async () => {
     quote.append(singleChar);
   });
   typedText.value = "";
-  // initialTime = new Date();
 };
 
 typedText.addEventListener("input", () => {
@@ -79,6 +76,11 @@ typedText.addEventListener("input", () => {
     }
   });
 });
+
+function toggleDontCopy() {
+  const dontCopyText = document.getElementById("dontCopyText");
+  dontCopyText.classList.toggle("hidden");
+}
 
 const getWPM = (arr, timeTaken) => {
   const wordsArr = arr.join("").split(" ");
@@ -138,3 +140,8 @@ const addDetails = () => {
   statsInfo.append(accuracyInfo, wpmInfo);
   innerBackdropContent.append(scoreInfo, statsInfo);
 };
+
+function clearProgress() {
+  localStorage.clear();
+  bestScore.innerHTML = "HighScore: 0";
+}
