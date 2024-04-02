@@ -2,7 +2,7 @@
 
 **Typester**, a fully **`responsive`** typing speed game implemented in `HTML`, `Tailwind` and `JavaScript`. The game allows users to test their typing speed and accuracy, storing the best speed achieved in local storage for future reference.
 
-## Hosted Link: https://haripriyaa1224.github.io/Team9-Project/Pranshu/
+## Hosted Link: https://typester-five.vercel.app/
 
 ![image](https://github.com/Haripriyaa1224/Team9-Project/assets/105149813/b7e9c458-7d72-4c85-831f-ee6828ea45a5)
 
